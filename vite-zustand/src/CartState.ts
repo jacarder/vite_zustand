@@ -9,7 +9,7 @@ type CartStore = {
 export const useCartStore = create<CartStore>(set => ({
 	cart: [],
 	addItem: (item: ICartItem) => set(state => addItem(state.cart, item)),
-	removeItem: (itemId: number) => set(state => removeItem(state))
+	removeItem: (itemId: number) => set(state => removeItem(state.cart, itemId))
 }))
 
 const addItem = (cart: ICartItem[], item: ICartItem) => {
@@ -24,8 +24,8 @@ const addItem = (cart: ICartItem[], item: ICartItem) => {
 		cart: cart
 	}
 }
-const removeItem = (cart: ICartItem[], item: ICartItem) => {
-	const itemIndex = cart.findIndex(x => x.id === item.id);
+const removeItem = (cart: ICartItem[], itemId: number) => {
+	const itemIndex = cart.findIndex(x => x.id === itemId);
 	if (itemIndex >= 0) {
 		const currentCount = cart[itemIndex].count;
 		cart[itemIndex].count = currentCount - 1;
@@ -33,8 +33,6 @@ const removeItem = (cart: ICartItem[], item: ICartItem) => {
 		if (cart[itemIndex].count <= 0) {
 			cart.splice(itemIndex, 1);
 		}
-	} else {
-		cart.push(item);
 	}
 	return {
 		cart: cart
