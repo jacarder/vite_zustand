@@ -16,7 +16,7 @@ const AddItemButton = ({
 }: Props) => {
 	const { addItem } = useCartStore();
 	return (
-		<Button colorScheme={'blue'} onClick={() => addItem({ id: id, description: description, count: 1 } as ICartItem)}>
+		<Button colorScheme={'blue'} onClick={() => addItem({ id: id, label: label, description: description, count: 1 } as ICartItem)}>
 			Add {label}
 		</Button>
 	)
